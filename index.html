@@ -70,14 +70,72 @@
     transform: translateX(-250px) rotate(-10deg) scale(0.8);
     opacity: 0;
   }
-  .avatar-circle{
-    width:340px; height:340px; border-radius:50%;
-    background:linear-gradient(145deg, #2a2a2a, #111);
-    border:2px solid var(--border);
-    display:flex; align-items:center; justify-content:center;
-    font-size:88px; font-weight:800; color:var(--pink);
-    box-shadow:0 30px 60px rgba(0,0,0,.5);
+  .hero-stage{
+    position:relative;
+    width:340px;
+    height:430px;
+    max-width:100%;
+    perspective:1100px;
   }
+  .hero-photo{
+    width:100%;
+    height:100%;
+    border-radius:28px;
+    overflow:hidden;
+    border:1px solid var(--border);
+    background:linear-gradient(145deg,#2a2a2a,#111);
+    box-shadow:0 30px 60px rgba(0,0,0,.55);
+    transform:rotateY(-18deg) rotateZ(5deg) scale(.96);
+    transform-origin:center;
+    transition:transform .7s cubic-bezier(.22,1,.36,1), box-shadow .7s ease, border-color .7s ease;
+    will-change:transform;
+  }
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    display:block;
+  }
+  /* hover on the fixed stage (not the tilted photo) so the effect never flickers at the edges */
+  .hero-stage:hover .hero-photo{
+    transform:rotateY(0deg) rotateZ(0deg) scale(1);
+    border-color:#ff0245;
+    box-shadow:0 0 30px rgba(255,2,69,.45), 0 30px 60px rgba(0,0,0,.55);
+  }
+  @media (hover:none){
+    .hero-photo{transform:none;}
+  }
+
+  /* ---- CUSTOM CURSOR ---- */
+  .cursor-ring, .cursor-dot{
+    position:fixed;
+    top:0; left:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:0;
+    border-radius:50%;
+  }
+  .cursor-ring{
+    width:38px; height:38px;
+    margin:-19px 0 0 -19px;
+    border:2px solid var(--pink);
+    transition:opacity .25s ease, width .25s ease, height .25s ease, margin .25s ease, background .25s ease;
+  }
+  .cursor-dot{
+    width:8px; height:8px;
+    margin:-4px 0 0 -4px;
+    background:var(--pink);
+    transition:opacity .25s ease;
+  }
+  .cursor-ring.show, .cursor-dot.show{opacity:1;}
+  .cursor-ring.hover{
+    width:64px; height:64px;
+    margin:-32px 0 0 -32px;
+    background:rgba(240,36,92,.12);
+  }
+  body.has-cursor, body.has-cursor a, body.has-cursor button{cursor:none;}
+  body.has-cursor input, body.has-cursor textarea{cursor:text;}
 
   /* ---- SECTION generic ---- */
   .section{padding:100px 0;}
@@ -339,6 +397,9 @@
 </head>
 <body>
 
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
 <header>
   <nav class="wrap">
     <div class="logo">SABARINATHAN S<span>.</span></div>
@@ -369,12 +430,10 @@
       </div>
     </div>
     <div class="avatar-wrap">
-      <div class="avatar-circle">
-          <img src="SABO.jpg" alt="Sabarinathan S"
-               style="width:340px;
-                      height:340px;
-                      border-radius:50%;
-                      object-fit:cover;">
+      <div class="hero-stage">
+        <div class="hero-photo">
+          <img src="SABO.jpg" alt="Sabarinathan S">
+        </div>
       </div>
     </div>
   </div>
@@ -676,6 +735,46 @@ window.addEventListener("scroll", function () {
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+})();
+</script>
+<script>
+// custom cursor: dot follows instantly, ring follows smoothly
+(function(){
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const ring = document.getElementById('cursorRing');
+  const dot = document.getElementById('cursorDot');
+  if (!ring || !dot) return;
+  document.body.classList.add('has-cursor');
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let mx = 0, my = 0, rx = 0, ry = 0, visible = false;
+
+  function setVisible(v){
+    ring.classList.toggle('show', v);
+    dot.classList.toggle('show', v);
+    visible = v;
+  }
+
+  document.addEventListener('mousemove', function(e){
+    mx = e.clientX; my = e.clientY;
+    if (!visible){ rx = mx; ry = my; }
+    dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)';
+    const t = e.target;
+    const inField = t.closest && t.closest('input, textarea');
+    setVisible(!inField);
+    ring.classList.toggle('hover', !!(t.closest && t.closest('a, button')));
+  }, { passive: true });
+
+  document.documentElement.addEventListener('mouseleave', function(){ setVisible(false); });
+
+  function loop(){
+    const k = reduce ? 1 : 0.18;
+    rx += (mx - rx) * k;
+    ry += (my - ry) * k;
+    ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)';
+    requestAnimationFrame(loop);
+  }
+  loop();
 })();
 </script>
 <script>
