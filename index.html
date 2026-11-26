@@ -49,30 +49,27 @@
     border-radius:20px;
     display:inline-block;
     transition:0.3s ease;
-}
+  }
   .btn-solid:hover{
     transform: translateY(-5px);
     border:2px solid #ff0245;
     box-shadow:0 0 20px rgba(255,36,92,0.5);
     background:#1c1c1c;
     color:#fff;
-}
+  }
   .btn-outline:hover{
     transform: translateY(-5px);
     border:2px solid #ff0245;
     box-shadow:0 0 20px rgba(255,36,92,0.5);
     background:#1c1c1c;
     color:#fff;
-}
+  }
 
-  .avatar-wrap{
-    transition: all 1s ease;
-}
-
-.avatar-wrap.hide{
+  .avatar-wrap{ transition: all 1s ease; }
+  .avatar-wrap.hide{
     transform: translateX(-250px) rotate(-10deg) scale(0.8);
     opacity: 0;
-}
+  }
   .avatar-circle{
     width:340px; height:340px; border-radius:50%;
     background:linear-gradient(145deg, #2a2a2a, #111);
@@ -81,29 +78,105 @@
     font-size:88px; font-weight:800; color:var(--pink);
     box-shadow:0 30px 60px rgba(0,0,0,.5);
   }
-  .avatar-note{position:absolute; bottom:-6px; font-size:11px; color:var(--text-dim); text-align:center; width:100%;}
 
   /* ---- SECTION generic ---- */
   .section{padding:100px 0;}
   .section-title{font-size:clamp(28px,3.2vw,38px); font-weight:800; margin-bottom:44px;}
 
   /* ---- ABOUT ---- */
-  .about-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:start;}
-  .about-photo{
-    aspect-ratio:1/1.1; border-radius:6px; background:linear-gradient(160deg,#222,#101010);
-    border:1px solid var(--border); display:flex; align-items:center; justify-content:center;
-    font-size:64px; font-weight:800; color:var(--pink);
+  .about-intro{color:var(--text-dim); max-width:70ch; margin-bottom:10px; font-size:16px;}
+
+  .stack-heading{
+    font-size:clamp(22px,2.4vw,28px);
+    font-weight:700;
+    margin:64px 0 28px;
+    display:flex;
+    align-items:center;
+    gap:14px;
   }
-  .about-text p{color:var(--text-dim); margin-bottom:26px; max-width:60ch;}
-  .tabs{display:flex; gap:34px; border-bottom:1px solid var(--border); margin-bottom:26px;}
-  .tab{background:none; border:none; color:var(--text-dim); font-family:'Poppins',sans-serif; font-weight:600; font-size:15px; padding:0 0 12px; cursor:pointer; position:relative;}
-  .tab.active{color:#fff;}
-  .tab.active::after{content:''; position:absolute; left:0; bottom:-1px; width:100%; height:2px; background:var(--pink);}
-  .tabpanel{display:none;}
-  .tabpanel.active{display:block;}
-  .item{margin-bottom:18px;}
-  .item .k{color:var(--pink); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.03em; margin-bottom:3px;}
-  .item .v{font-size:15.5px; color:#ececec;}
+  .stack-heading::after{content:''; flex:1; height:1px; background:var(--border);}
+  .stack-heading span{color:var(--pink);}
+
+  /* stacking slide cards (scroll one by one) */
+  .stack{position:relative;}
+  .stack-card{
+    position:sticky;
+    top:calc(112px + var(--i) * 14px);
+    margin-bottom:26px;
+    min-height:230px;
+    padding:38px 44px;
+    border-radius:28px;
+    background:linear-gradient(160deg,#202020,#151515);
+    border:1px solid var(--border);
+    box-shadow:0 -12px 40px rgba(0,0,0,.55);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    overflow:hidden;
+    transform-origin:top center;
+    will-change:transform;
+  }
+  .stack-card::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse 420px 220px at 100% 0%, rgba(240,36,92,.12) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .stack-label{
+    color:var(--pink);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    position:relative;
+  }
+  .stack-card h4{
+    font-size:clamp(26px,3.4vw,40px);
+    font-weight:800;
+    line-height:1.2;
+    margin-bottom:12px;
+    max-width:80%;
+    position:relative;
+  }
+  .stack-card p{
+    color:#cfcfcf;
+    font-size:16px;
+    max-width:62ch;
+    position:relative;
+  }
+  .stack-num{
+    position:absolute;
+    right:36px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:130px;
+    font-weight:800;
+    color:rgba(255,255,255,.05);
+    line-height:1;
+    pointer-events:none;
+  }
+
+  /* hover effect for stacking cards (no transform on the card itself, the scroll script uses it) */
+  .stack-card{
+    transition:border-color .35s ease, box-shadow .35s ease, background .35s ease;
+  }
+  .stack-card h4, .stack-card p, .stack-label, .stack-num{
+    transition:transform .35s ease, color .35s ease;
+  }
+  .stack-card:hover{
+    border-color:#ff0245;
+    box-shadow:0 0 28px rgba(255,2,69,.5), 0 -12px 40px rgba(0,0,0,.55);
+    background:linear-gradient(160deg,#262226,#171517);
+  }
+  .stack-card:hover h4{transform:translateX(10px);}
+  .stack-card:hover p{transform:translateX(10px); color:#ffffff;}
+  .stack-card:hover .stack-label{transform:translateX(10px);}
+  .stack-card:hover .stack-num{
+    color:rgba(240,36,92,.22);
+    transform:translateY(-50%) scale(1.08);
+  }
 
   /* ---- SERVICES ---- */
   .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
@@ -113,75 +186,17 @@
     border-radius: 20px;
     border:2px solid transparent;
     transition:0.3s ease;
-}
-
-.service-card:hover{
-    border:2px solid #ff0245;
-    box-shadow:0 0 20px rgba(255,2,69,0.5);
-    transform:translateY(-5px);
-}
+  }
   .service-card:hover{
     border:2px solid #ff0245;
     box-shadow:0 0 20px rgba(255,2,69,0.5);
     transform:translateY(-6px);
-}
-  .service-card:hover{transform:translateY(-6px);}
+  }
   .service-icon{width:44px; height:44px; margin-bottom:26px; display:flex; align-items:center; justify-content:center;}
   .service-card h3{font-size:20px; font-weight:700; margin-bottom:14px;}
   .service-card p{color:#d5d5d5; font-size:14px; margin-bottom:20px;}
-  .service-card.hi p{color:rgba(255,255,255,.85);}
   .learn{font-size:13px; font-weight:600; color:var(--pink); border-bottom:1px solid var(--pink); padding-bottom:2px;}
-  .service-card.hi .learn{color:#fff; border-color:#fff;}
   .card-links{display:flex; gap:22px; flex-wrap:wrap;}
-
-  /* ---- WORK ---- */
-  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:44px;}
-  .work-card{
-    position:relative; border-radius:6px; overflow:hidden; aspect-ratio:3/3.6;
-    background:linear-gradient(160deg,#242424,#101010); border:1px solid var(--border);
-    display:flex; align-items:flex-end;
-  }
-  .work-card .overlay{
-    position:absolute; inset:0; background:linear-gradient(180deg, rgba(13,13,13,0) 40%, rgba(240,36,92,.55) 100%);
-    opacity:0; transition:opacity .3s ease;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:28px;
-  }
-  .work-card:hover .overlay{opacity:1;}
-  .work-card .placeholder-label{position:absolute; top:16px; left:16px; font-size:12px; color:var(--text-dim); font-weight:500;}
-  .overlay h3{font-size:18px; font-weight:700; margin-bottom:10px;}
-  .overlay p{font-size:13px; color:#f2f2f2; margin-bottom:16px;}
-  .overlay .icon{width:38px; height:38px; border-radius:50%; background:#fff; color:var(--pink); display:flex; align-items:center; justify-content:center; font-size:16px;}
-  box-shadow:none;
-  border:none;
-  transition:all .35s ease;
-  .see-more{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    width:180px;
-    height:55px;
-
-    margin:40px auto 0;
-
-    background:#1b1b1b;
-    color:#fff;
-    text-decoration:none;
-
-    border:2px solid #3a3a3a;
-    border-radius:40px;
-
-    font-size:16px;
-    font-weight:600;
-
-    transition:all .35s ease;
-    box-shadow:none;
-}
-  .see-more:hover{
-    transform:translateY(-4px);
-    border-color:#ff2e63;
-    box-shadow:0 0 30px rgba(255,46,99,.55);
-}
 
   /* ---- CONTACT ---- */
   .contact-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:56px;}
@@ -190,108 +205,77 @@
   .contact-info a.line:hover .ic{
     background:#1b1b1b;
     color:#ffffff;
-
     border:2px solid #ff2e63;
     box-shadow:0 0 20px rgba(255,46,99,.55);
-
     transform:translateY(-4px);
-}
+  }
   .ic{
     width:45px;
     height:45px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:#1b1b1b;
     color:#ffffff;
-
     border:2px solid #000;
     border-radius:50%;
-
     font-size:16px;
     flex-shrink:0;
-
     transition:all .35s ease;
     box-shadow:none;
-}
-
-.ic:hover{
+  }
+  .ic:hover{
     background:#1b1b1b;
     color:#ffffff;
-
     border-color:#ff2e63;
     box-shadow:0 0 20px rgba(255,46,99,.55);
-
     transform:translateY(-4px);
-}
+  }
   .social-row{display:flex; gap:12px; margin:26px 0 34px;}
   .social-row a{
     width:45px;
     height:45px;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
     background:#1b1b1b;
     color:#fff;
-
-    border:2px solid #000;   /* Black border */
-
+    border:2px solid #000;
     border-radius:50%;
-
     font-size:16px;
-
     transition:all .35s ease;
     box-shadow:none;
-}
+  }
   .social-row a:hover{
     color:#fff;
-    background:#1b1b1b;      /* Background same */
-
-    border-color:#ff2e63;    /* Pink border */
-
+    background:#1b1b1b;
+    border-color:#ff2e63;
     box-shadow:0 0 20px rgba(255,46,99,.55);
-
     transform:translateY(-4px);
-}
+  }
   .cv-btn{
     display:inline-flex;
     align-items:center;
     justify-content:center;
-
     width:200px;
     height:56px;
-
     background:#1b1b1b;
     color:#fff;
     text-decoration:none;
-
     border:2px solid #000000;
     border-radius:40px;
-
     font-size:16px;
     font-weight:600;
     font-family:inherit;
-
     white-space:nowrap;
-
     transition:all .35s ease;
     box-shadow:none;
-}
-
-.cv-btn:hover{
+  }
+  .cv-btn:hover{
     transform:translateY(-4px);
     border-color:#ff2e63;
     box-shadow:0 0 30px rgba(255,46,99,.55);
-}
-  .service-card:hover{
-    transform:translateY(-10px);
-    border-color:#ff2e63;
-    box-shadow:0 15px 35px rgba(255,46,99,.3);
-}
+  }
   form{display:flex; flex-direction:column; gap:16px;}
   form input, form textarea{
     background:var(--card); border:1px solid var(--border); border-radius:4px; padding:16px 18px;
@@ -301,49 +285,50 @@
   form input::placeholder, form textarea::placeholder{color:#7a7a7a;}
   form button{
     align-self:flex-start;
-
     width:180px;
     height:55px;
-
     background:#1b1b1b;
     color:#fff;
-
     border:none;
-
     border-radius:40px;
-
     font-size:16px;
     font-weight:600;
     font-family:'Poppins',sans-serif;
-
     cursor:pointer;
-
     transition:all .35s ease;
     box-shadow:none;
-}
-
-form button:hover{
+  }
+  form button:hover{
     transform:translateY(-4px);
     border:2px solid #ff2e63;
     box-shadow:0 0 30px rgba(255,46,99,.55);
-}
+  }
   .success-msg{
     display:none;
     color:#25d366;
     margin-top:15px;
     font-size:15px;
     font-weight:500;
-}
+  }
 
   footer{border-top:1px solid var(--border); padding:32px 0; text-align:center; color:var(--text-dim); font-size:13px;}
 
   @media (max-width:900px){
-    .hero-grid, .about-grid, .contact-grid{grid-template-columns:1fr; text-align:left;}
+    .hero-grid, .contact-grid{grid-template-columns:1fr; text-align:left;}
     .avatar-wrap{order:-1; margin-bottom:20px;}
-    .service-grid, .work-grid{grid-template-columns:1fr;}
+    .service-grid{grid-template-columns:1fr;}
     .navlinks{position:fixed; top:82px; left:0; right:0; background:var(--bg-2); flex-direction:column; padding:20px 40px; gap:20px; display:none; border-bottom:1px solid var(--border);}
     .navlinks.open{display:flex;}
     .navtoggle{display:block;}
+    .wrap{padding:0 22px;}
+    .stack-card{
+      top:calc(100px + var(--i) * 10px);
+      padding:28px 24px;
+      min-height:200px;
+      border-radius:22px;
+    }
+    .stack-card h4{max-width:100%;}
+    .stack-num{font-size:84px; right:18px;}
   }
 </style>
 </head>
@@ -370,7 +355,7 @@ form button:hover{
          Final Year CSBS Student | Open to Work.
       </div>
       <h1>Hi, I'm <span class="pink">SABARINATHAN</span></h1>
-      <h1>Aspiring Data Analyst & Data Science</h1>
+      <h1>Aspiring Data Analyst &amp; Data Science</h1>
       <p style="color:#a9a9a9; margin-top:10px;">
          Passionate about Python, Data Analytics, and Machine Learning.
       </p>
@@ -381,7 +366,7 @@ form button:hover{
     </div>
     <div class="avatar-wrap">
       <div class="avatar-circle">
-          <img src="SABO.jpg"
+          <img src="SABO.jpg" alt="Sabarinathan S"
                style="width:340px;
                       height:340px;
                       border-radius:50%;
@@ -394,160 +379,144 @@ form button:hover{
 <section class="section" id="about">
   <div class="wrap">
     <h2 class="section-title">About Me</h2>
-    <div class="about-grid">
-      <div class="about-photo">
-          <img src="ABOUT ME.png"
-               style="width:100%;
-                      height:100%;
-                      object-fit:cover;
-                      border-radius:6px;">
-      </div>
-      <div class="about-text">
-        <p>
-        I'm a final year Computer Science and Business Systems student at
-        JCT College of Engineering and Technology - Coimbatore. I'm passionate about
-        Python, Data Analytics, and Machine Learning. Currently, I'm preparing
-        for placements and improving my technical skills through projects and
-        certifications.
-</p>
-        <div class="tabs">
-          <button class="tab active" data-tab="skills">Skills</button>
-          <button class="tab" data-tab="education">Education</button>
-          <button class="tab" data-tab="certifications">Certifications</button>
-        </div>
 
-<div class="tabpanel active" id="skills">
+    <p class="about-intro">
+      I'm a final year Computer Science and Business Systems student at
+      JCT College of Engineering and Technology - Coimbatore. I'm passionate about
+      Python, Data Analytics, and Machine Learning. Currently, I'm preparing
+      for placements and improving my technical skills through projects and
+      certifications.
+    </p>
 
-    <div class="item">
-        <div class="k">Python</div>
-        <div class="v">Programming, Automation & Problem Solving</div>
+    <!-- SKILLS -->
+    <h3 class="stack-heading">Skills</h3>
+    <div class="stack">
+      <article class="stack-card" style="--i:0">
+        <div class="stack-label">Skill 01</div>
+        <h4>Python</h4>
+        <p>Programming, Automation &amp; Problem Solving</p>
+        <span class="stack-num">01</span>
+      </article>
+      <article class="stack-card" style="--i:1">
+        <div class="stack-label">Skill 02</div>
+        <h4>SQL</h4>
+        <p>Database Management &amp; Querying</p>
+        <span class="stack-num">02</span>
+      </article>
+      <article class="stack-card" style="--i:2">
+        <div class="stack-label">Skill 03</div>
+        <h4>Microsoft Excel</h4>
+        <p>Data Analysis, Pivot Tables &amp; Charts</p>
+        <span class="stack-num">03</span>
+      </article>
+      <article class="stack-card" style="--i:3">
+        <div class="stack-label">Skill 04</div>
+        <h4>Power BI</h4>
+        <p>Interactive Dashboards &amp; Reports</p>
+        <span class="stack-num">04</span>
+      </article>
+      <article class="stack-card" style="--i:4">
+        <div class="stack-label">Skill 05</div>
+        <h4>Data Analytics</h4>
+        <p>Data Cleaning, Analysis &amp; Visualization</p>
+        <span class="stack-num">05</span>
+      </article>
+      <article class="stack-card" style="--i:5">
+        <div class="stack-label">Skill 06</div>
+        <h4>Generative AI &amp; Prompt Engineering</h4>
+        <p>Prompt Design &amp; AI Applications</p>
+        <span class="stack-num">06</span>
+      </article>
+      <article class="stack-card" style="--i:6">
+        <div class="stack-label">Skill 07</div>
+        <h4>Cybersecurity Fundamentals</h4>
+        <p>Identity &amp; Access Management (IAM)</p>
+        <span class="stack-num">07</span>
+      </article>
+      <article class="stack-card" style="--i:7">
+        <div class="stack-label">Skill 08</div>
+        <h4>Git &amp; GitHub</h4>
+        <p>Version Control &amp; Collaboration</p>
+        <span class="stack-num">08</span>
+      </article>
     </div>
 
-    <div class="item">
-        <div class="k">SQL</div>
-        <div class="v">Database Management & Querying</div>
+    <!-- EDUCATION -->
+    <h3 class="stack-heading">Education</h3>
+    <div class="stack">
+      <article class="stack-card" style="--i:0">
+        <div class="stack-label">Education 01 · 2023 - 2027</div>
+        <h4>B.Tech - Computer Science and Business Systems (CSBS)</h4>
+        <p>JCT College of Engineering and Technology - Coimbatore<br>CGPA: 8.23 / 10</p>
+        <span class="stack-num">01</span>
+      </article>
+      <article class="stack-card" style="--i:1">
+        <div class="stack-label">Education 02 · 2023</div>
+        <h4>Higher Secondary Certificate (HSC)</h4>
+        <p>Sri Krishna Matriculation Higher Secondary School - Oddanchathram</p>
+        <span class="stack-num">02</span>
+      </article>
+      <article class="stack-card" style="--i:2">
+        <div class="stack-label">Education 03 · 2021</div>
+        <h4>All India Secondary School Examination (AISSE)</h4>
+        <p>Akshaya Academy CBSE Senior Secondary School - Oddanchathram</p>
+        <span class="stack-num">03</span>
+      </article>
     </div>
 
-    <div class="item">
-        <div class="k">Microsoft Excel</div>
-        <div class="v">Data Analysis, Pivot Tables & Charts</div>
+    <!-- CERTIFICATIONS -->
+    <h3 class="stack-heading">Certifications</h3>
+    <div class="stack">
+      <article class="stack-card" style="--i:0">
+        <div class="stack-label">Certification 01 · 2026</div>
+        <h4>Deloitte Data Analytics Job Simulation</h4>
+        <p>Virtual job simulation focused on real-world data analytics tasks.</p>
+        <span class="stack-num">01</span>
+      </article>
+      <article class="stack-card" style="--i:1">
+        <div class="stack-label">Certification 02 · 2026</div>
+        <h4>AWS - Foundations of Prompt Engineering</h4>
+        <p>Prompt design techniques for generative AI applications.</p>
+        <span class="stack-num">02</span>
+      </article>
+      <article class="stack-card" style="--i:2">
+        <div class="stack-label">Certification 03 · 2025</div>
+        <h4>TCS Forage - Cybersecurity Analyst Job Simulation</h4>
+        <p>Identity and access management tasks in a simulated analyst role.</p>
+        <span class="stack-num">03</span>
+      </article>
+      <article class="stack-card" style="--i:3">
+        <div class="stack-label">Certification 04 · 2025</div>
+        <h4>TCS Forage - GenAI Powered Data Analytics Job Simulation</h4>
+        <p>Using generative AI to support data analytics workflows.</p>
+        <span class="stack-num">04</span>
+      </article>
+      <article class="stack-card" style="--i:4">
+        <div class="stack-label">Certification 05 · 2025</div>
+        <h4>IBM - Python 101 for Data Science</h4>
+        <p>Python fundamentals for data science.</p>
+        <span class="stack-num">05</span>
+      </article>
+      <article class="stack-card" style="--i:5">
+        <div class="stack-label">Certification 06 · 2025</div>
+        <h4>Basics of Microsoft Power BI</h4>
+        <p>Building dashboards and reports with Power BI.</p>
+        <span class="stack-num">06</span>
+      </article>
+      <article class="stack-card" style="--i:6">
+        <div class="stack-label">Certification 07 · 2025</div>
+        <h4>Introduction to Microsoft Excel (Coursera)</h4>
+        <p>Spreadsheet basics, formulas and data analysis in Excel.</p>
+        <span class="stack-num">07</span>
+      </article>
+      <article class="stack-card" style="--i:7">
+        <div class="stack-label">Certification 08 · 2024</div>
+        <h4>HP - A Complete Guide to Game Design</h4>
+        <p>Game design concepts and workflow.</p>
+        <span class="stack-num">08</span>
+      </article>
     </div>
-
-    <div class="item">
-        <div class="k">Power BI</div>
-        <div class="v">Interactive Dashboards & Reports</div>
-    </div>
-
-    <div class="item">
-        <div class="k">Data Analytics</div>
-        <div class="v">Data Cleaning, Analysis & Visualization</div>
-    </div>
-
-    <div class="item">
-        <div class="k">Generative AI & Prompt Engineering</div>
-        <div class="v">Prompt Design & AI Applications</div>
-    </div>
-
-    <div class="item">
-        <div class="k">Cybersecurity Fundamentals</div>
-        <div class="v">Identity & Access Management (IAM)</div>
-    </div>
-
-    <div class="item">
-        <div class="k">Git & GitHub</div>
-        <div class="v">Version Control & Collaboration</div>
-    </div>
-
-</div>
-
-<div class="tabpanel" id="education">
-
-    <div class="item">
-        <div class="k">2023 - 2027</div>
-        <div class="v">
-            B.Tech - Computer Science and Business Systems (CSBS)<br>
-            JCT College of Engineering and Technology - Coimbatore<br>
-            CGPA: 8.23 / 10
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2023</div>
-        <div class="v">
-            Sri Krishna Matriculation Higher Secondary School - Oddanchathram<br>
-            Higher Secondary Certificate (HSC)
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2021</div>
-        <div class="v">
-            Akshaya Academy CBSE Senior Secondary School - Oddanchathram<br>
-            All India Secondary School Examination (AISSE)
-        </div>
-    </div>
-
-</div>
-
-<div class="tabpanel" id="certifications">
-
-    <div class="item">
-        <div class="k">2026</div>
-        <div class="v">
-            Deloitte Data Analytics Job Simulation
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2026</div>
-        <div class="v">
-            AWS - Foundations of Prompt Engineering
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2025</div>
-        <div class="v">
-            TCS Forage - Cybersecurity Analyst Job Simulation
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2025</div>
-        <div class="v">
-            TCS Forage - GenAI Powered Data Analytics Job Simulation
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2025</div>
-        <div class="v">
-            IBM - Python 101 for Data Science
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2025</div>
-        <div class="v">
-            Basics of Microsoft Power BI
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2025</div>
-        <div class="v">
-            Introduction to Microsoft Excel (Coursera)
-        </div>
-    </div>
-
-    <div class="item">
-        <div class="k">2024</div>
-        <div class="v">
-            HP - A Complete Guide to Game Design
-        </div>
-    </div>
-
-</div>
+  </div>
 </section>
 
 <section class="section" id="services">
@@ -560,40 +529,34 @@ form button:hover{
         <p>Analyzing datasets using Python, SQL, and Excel to identify trends and support data-driven decision making.</p>
         <a class="learn"
         href="https://www.google.com/search?q=Data+Analysis"
-        target="_blank">Learn More →</a>
+        target="_blank" rel="noopener">Learn More →</a>
       </div>
       <div class="service-card">
-    <div class="service-icon">📈</div>
-
-    <h3>Dashboard Development</h3>
-
-    <p>
-        Building interactive dashboards and reports using
-        Power BI and Excel to visualize business insights effectively.
-    </p>
-
-    <a class="learn"
-       href="https://www.google.com/search?q=Power+BI+Dashboard"
-       target="_blank">
-       Learn More →
-    </a>
-</div>
+        <div class="service-icon">📈</div>
+        <h3>Dashboard Development</h3>
+        <p>
+            Building interactive dashboards and reports using
+            Power BI and Excel to visualize business insights effectively.
+        </p>
+        <a class="learn"
+           href="https://www.google.com/search?q=Power+BI+Dashboard"
+           target="_blank" rel="noopener">
+           Learn More →
+        </a>
+      </div>
       <div class="service-card">
-    <div class="service-icon">🤖</div>
-
-    <h3>AI & Prompt Engineering</h3>
-
-    <p>
-        Applying prompt engineering techniques and leveraging
-        AI tools to improve productivity and problem-solving.
-    </p>
-
-    <a class="learn"
-       href="https://www.google.com/search?q=AI+Prompt+Engineering"
-       target="_blank">
-       Learn More →
-    </a>
-</div>
+        <div class="service-icon">🤖</div>
+        <h3>AI &amp; Prompt Engineering</h3>
+        <p>
+            Applying prompt engineering techniques and leveraging
+            AI tools to improve productivity and problem-solving.
+        </p>
+        <a class="learn"
+           href="https://www.google.com/search?q=AI+Prompt+Engineering"
+           target="_blank" rel="noopener">
+           Learn More →
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -656,7 +619,7 @@ form button:hover{
                 <h3>Thalir Study Tracker</h3>
 
                 <p>
-                    A study roadmap tracker where a tree grows as you complete topics. Includes streaks, a activity heatmap, history and notes. Built with HTML, CSS and JavaScript.
+                    A study roadmap tracker where a tree grows as you complete topics. Includes streaks, an activity heatmap, history and notes. Built with HTML, CSS and JavaScript.
                 </p>
 
                 <div class="card-links">
@@ -688,17 +651,17 @@ form button:hover{
         </a>
         <a class="line" href="tel:+919486301330"><span class="ic">☎</span>+91 9486301330</a>
         <div class="social-row">
-            <a href="https://github.com/sabari7813" target="_blank" aria-label="GitHub">
+            <a href="https://github.com/sabari7813" target="_blank" rel="noopener" aria-label="GitHub">
                 <i class="fab fa-github"></i>
             </a>
 
-            <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/" target="_blank" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME/" target="_blank" rel="noopener" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
             </a>
 
-            <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
                 <i class="fab fa-instagram"></i>
-            </a>    
+            </a>
         </div>
         <a class="cv-btn" href="resume_2.pdf" download>
             Download Resume
@@ -711,7 +674,7 @@ form button:hover{
              name="name"
              placeholder="Your Name"
              required
-         > 
+         >
 
          <input
              type="email"
@@ -738,15 +701,6 @@ form button:hover{
 <footer>© 2026 Sabarinathan S. All rights reserved.</footer>
 
 <script>
-  // tabs
-  document.querySelectorAll('.tab').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-      document.querySelectorAll('.tabpanel').forEach(p=>p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
-    });
-  });
   // mobile nav
   const toggle = document.getElementById('navtoggle');
   const links = document.getElementById('navlinks');
@@ -754,48 +708,69 @@ form button:hover{
   links.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>links.classList.remove('open')));
 </script>
 <script>
+// hero photo slides away on scroll
 window.addEventListener("scroll", function () {
-
     const photo = document.querySelector(".avatar-wrap");
-
     if (window.scrollY > 100) {
         photo.classList.add("hide");
     } else {
         photo.classList.remove("hide");
     }
-
 });
 </script>
 <script>
+// stacking slide cards: previous cards shrink slightly as the next one slides over
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const stacks = document.querySelectorAll('.stack');
+  let ticking = false;
+
+  function update(){
+    stacks.forEach(function(stack){
+      const cards = Array.prototype.slice.call(stack.querySelectorAll('.stack-card'));
+      cards.forEach(function(card, i){
+        let covered = 0;
+        for (let j = i + 1; j < cards.length; j++){
+          const c = cards[j];
+          const top = c.getBoundingClientRect().top;
+          const stickyTop = parseFloat(getComputedStyle(c).top) || 0;
+          const h = c.offsetHeight || 1;
+          const p = Math.min(1, Math.max(0, 1 - (top - stickyTop) / h));
+          covered += p;
+        }
+        const scale = 1 - Math.min(covered, 5) * 0.035;
+        card.style.transform = 'scale(' + scale.toFixed(4) + ')';
+      });
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function(){
+    if (!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+</script>
+<script>
+// contact form
 const form = document.querySelector("form");
 const successMsg = document.querySelector(".success-msg");
 
 form.addEventListener("submit", async function(e){
-
     e.preventDefault();
-
     const data = new FormData(form);
-
     const response = await fetch(form.action,{
         method:"POST",
         body:data,
-        headers:{
-            Accept:"application/json"
-        }
+        headers:{ Accept:"application/json" }
     });
-
     if(response.ok){
-
         successMsg.style.display="block";
-
         form.reset();
-
     }else{
-
         alert("Something went wrong.");
-
     }
-
 });
 </script>
 </body>
