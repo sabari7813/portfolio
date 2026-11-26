@@ -65,21 +65,15 @@
     color:#fff;
   }
 
-  .avatar-wrap{ transition: all 1s ease; }
-  .avatar-wrap.hide{
-    transform: translateX(-250px) rotate(-10deg) scale(0.8);
-    opacity: 0;
-  }
   .hero-stage{
     position:relative;
-    width:340px;
-    height:430px;
+    width:fit-content;
     max-width:100%;
     perspective:1100px;
   }
   .hero-photo{
-    width:100%;
-    height:100%;
+    width:fit-content;
+    max-width:100%;
     border-radius:28px;
     overflow:hidden;
     border:1px solid var(--border);
@@ -91,17 +85,15 @@
     will-change:transform;
   }
   .hero-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    object-position:center top;
     display:block;
+    width:auto;
+    height:auto;
+    max-width:min(460px, calc(100vw - 44px));
+    max-height:68vh;
   }
   /* hover on the fixed stage (not the tilted photo) so the effect never flickers at the edges */
   .hero-stage:hover .hero-photo{
     transform:rotateY(0deg) rotateZ(0deg) scale(1);
-    border-color:#ff0245;
-    box-shadow:0 0 30px rgba(255,2,69,.45), 0 30px 60px rgba(0,0,0,.55);
   }
   @media (hover:none){
     .hero-photo{transform:none;}
@@ -378,7 +370,7 @@
 
   @media (max-width:900px){
     .hero-grid, .contact-grid{grid-template-columns:1fr; text-align:left;}
-    .avatar-wrap{order:-1; margin-bottom:20px;}
+    .avatar-wrap{order:-1; margin-bottom:20px; display:flex; justify-content:center;}
     .service-grid{grid-template-columns:1fr;}
     .navlinks{position:fixed; top:82px; left:0; right:0; background:var(--bg-2); flex-direction:column; padding:20px 40px; gap:20px; display:none; border-bottom:1px solid var(--border);}
     .navlinks.open{display:flex;}
@@ -691,17 +683,6 @@
   const links = document.getElementById('navlinks');
   toggle.addEventListener('click', ()=> links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>links.classList.remove('open')));
-</script>
-<script>
-// hero photo slides away on scroll
-window.addEventListener("scroll", function () {
-    const photo = document.querySelector(".avatar-wrap");
-    if (window.scrollY > 100) {
-        photo.classList.add("hide");
-    } else {
-        photo.classList.remove("hide");
-    }
-});
 </script>
 <script>
 // stacking slide cards: previous cards shrink slightly as the next one slides over
