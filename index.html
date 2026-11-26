@@ -20,40 +20,32 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
-
 html{scroll-behavior:smooth;}
-
 body{
   background:var(--bg);
   color:var(--text);
   font-family:'Poppins',sans-serif;
   line-height:1.7;
 }
-
 a{color:inherit;text-decoration:none;}
-
-.wrap{
-  max-width:1180px;
-  margin:0 auto;
-  padding:0 40px;
-}
-
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
 ::selection{background:var(--pink);color:#fff;}
 
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+a:focus-visible,button:focus-visible,
+input:focus-visible,textarea:focus-visible{
   outline:2px solid var(--pink);
   outline-offset:2px;
 }
 
-@media (prefers-reduced-motion: reduce){
+@media (prefers-reduced-motion:reduce){
   *{
-    animation-duration:.001ms !important;
-    transition-duration:.001ms !important;
-    scroll-behavior:auto !important;
+    animation-duration:.001ms!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
   }
 }
 
-/* ---- NAV ---- */
+/* NAVIGATION */
 
 header{
   position:sticky;
@@ -98,7 +90,7 @@ nav.wrap{
   cursor:pointer;
 }
 
-/* ---- HERO ---- */
+/* HERO SECTION */
 
 .hero{
   position:relative;
@@ -157,6 +149,8 @@ nav.wrap{
   color:#fff;
 }
 
+/* PROFILE IMAGE */
+
 .hero-stage{
   position:relative;
   width:fit-content;
@@ -184,29 +178,24 @@ nav.wrap{
   display:block;
   width:auto;
   height:auto;
-  max-width:min(460px, calc(100vw - 44px));
+  max-width:min(460px,calc(100vw - 44px));
   max-height:68vh;
 }
 
-/* ---- FIXED PROFILE IMAGE ---- */
+/* IMPORTANT:
+   Image is inside the Hero section.
+   It is NOT fixed to the browser screen.
+   When Hero scrolls away, image also disappears.
+*/
 
-@media (min-width:901px){
-
-  .avatar-wrap{
-    position:fixed;
-    top:170px;
-    right:calc((100vw - min(1180px, 100vw - 80px))/2 + 180px);
-    width:460px;
-    margin:0;
-    display:flex;
-    justify-content:center;
-    z-index:1;
-    pointer-events:none;
-    will-change:transform;
-  }
-
-  .hero-stage{pointer-events:none;}
-  .hero-photo{pointer-events:auto;}
+.avatar-wrap{
+  position:relative;
+  width:100%;
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:1;
 }
 
 .hero-stage:hover .hero-photo{
@@ -217,7 +206,7 @@ nav.wrap{
   .hero-photo{transform:none;}
 }
 
-/* ---- CUSTOM CURSOR ---- */
+/* CUSTOM CURSOR */
 
 .cursor-ring,.cursor-dot{
   position:fixed;
@@ -263,7 +252,7 @@ body.has-cursor button{cursor:none;}
 body.has-cursor input,
 body.has-cursor textarea{cursor:text;}
 
-/* ---- SECTION ---- */
+/* GENERAL SECTIONS */
 
 .section{padding:100px 0;}
 
@@ -273,7 +262,7 @@ body.has-cursor textarea{cursor:text;}
   margin-bottom:44px;
 }
 
-/* ---- ABOUT ME ---- */
+/* ABOUT ME */
 
 .about-intro{
   color:var(--text-dim);
@@ -285,7 +274,7 @@ body.has-cursor textarea{cursor:text;}
   letter-spacing:.005em;
 }
 
-/* ---- SKILLS / EDUCATION / CERTIFICATIONS ---- */
+/* SECTION HEADINGS */
 
 .stack-heading{
   font-size:clamp(22px,2.4vw,28px);
@@ -304,6 +293,8 @@ body.has-cursor textarea{cursor:text;}
 }
 
 .stack-heading span{color:var(--pink);}
+
+/* STACKING CARDS */
 
 .stack{position:relative;}
 
@@ -396,10 +387,12 @@ body.has-cursor textarea{cursor:text;}
 }
 
 .stack-card:hover h4{transform:translateX(10px);}
+
 .stack-card:hover p{
   transform:translateX(10px);
   color:#ffffff;
 }
+
 .stack-card:hover .stack-label{transform:translateX(10px);}
 
 .stack-card:hover .stack-num{
@@ -418,9 +411,13 @@ body.has-cursor textarea{cursor:text;}
 }
 
 .stack-card:hover .card-links{transform:translateX(10px);}
-.stack-card .learn:hover{color:#fff;border-color:#fff;}
 
-/* ---- SERVICES ---- */
+.stack-card .learn:hover{
+  color:#fff;
+  border-color:#fff;
+}
+
+/* SERVICES */
 
 .service-grid{
   display:grid;
@@ -477,7 +474,7 @@ body.has-cursor textarea{cursor:text;}
   flex-wrap:wrap;
 }
 
-/* ---- CONTACT ---- */
+/* CONTACT */
 
 .contact-grid{
   display:grid;
@@ -582,6 +579,8 @@ body.has-cursor textarea{cursor:text;}
   box-shadow:0 0 30px rgba(255,46,99,.55);
 }
 
+/* CONTACT FORM */
+
 form{
   display:flex;
   flex-direction:column;
@@ -642,7 +641,7 @@ footer{
   font-size:13px;
 }
 
-/* ---- RESPONSIVE DESIGN ---- */
+/* RESPONSIVE DESIGN */
 
 @media (max-width:900px){
 
@@ -683,9 +682,7 @@ footer{
   }
 
   .navlinks.open{display:flex;}
-
   .navtoggle{display:block;}
-
   .wrap{padding:0 22px;}
 
   .stack-card{
@@ -696,11 +693,7 @@ footer{
   }
 
   .stack-card h4{max-width:100%;}
-
-  .stack-num{
-    font-size:84px;
-    right:18px;
-  }
+  .stack-num{font-size:84px;right:18px;}
 }
 
 </style>
@@ -727,14 +720,13 @@ footer{
       <a href="#contact">Contact</a>
     </div>
 
-    <button class="navtoggle" id="navtoggle" aria-label="Toggle menu">
-      ☰
-    </button>
+    <button class="navtoggle" id="navtoggle"
+            aria-label="Toggle menu">☰</button>
 
   </nav>
 </header>
 
-<!-- HERO SECTION -->
+<!-- HOME SECTION -->
 
 <section class="hero" id="home">
 
@@ -754,7 +746,7 @@ footer{
         Aspiring Data Analyst &amp; Data Science
       </h1>
 
-      <p style="color:#a9a9a9; margin-top:10px;">
+      <p style="color:#a9a9a9;margin-top:10px;">
         Passionate about Python, Data Analytics, and Machine Learning.
       </p>
 
@@ -777,9 +769,7 @@ footer{
       <div class="hero-stage">
 
         <div class="hero-photo">
-
           <img src="SABO.jpg" alt="Sabarinathan S">
-
         </div>
 
       </div>
@@ -796,9 +786,7 @@ footer{
 
   <div class="wrap">
 
-    <h2 class="section-title">
-      About Me
-    </h2>
+    <h2 class="section-title">About Me</h2>
 
     <p class="about-intro">
       I'm a final year Computer Science and Business Systems student at
@@ -882,8 +870,8 @@ footer{
         <div class="stack-label">Education 01 · 2023 - 2027</div>
         <h4>B.Tech - Computer Science and Business Systems (CSBS)</h4>
         <p>
-          JCT College of Engineering and Technology - Coimbatore<br>
-          CGPA: 8.23 / 10
+          JCT College of Engineering and Technology - Coimbatore
+          <br>CGPA: 8.23 / 10
         </p>
         <span class="stack-num">01</span>
       </article>
@@ -953,18 +941,14 @@ footer{
       <article class="stack-card" style="--i:4">
         <div class="stack-label">Certification 05 · 2025</div>
         <h4>IBM - Python 101 for Data Science</h4>
-        <p>
-          Python fundamentals for data science.
-        </p>
+        <p>Python fundamentals for data science.</p>
         <span class="stack-num">05</span>
       </article>
 
       <article class="stack-card" style="--i:5">
         <div class="stack-label">Certification 06 · 2025</div>
         <h4>Basics of Microsoft Power BI</h4>
-        <p>
-          Building dashboards and reports with Power BI.
-        </p>
+        <p>Building dashboards and reports with Power BI.</p>
         <span class="stack-num">06</span>
       </article>
 
@@ -972,7 +956,7 @@ footer{
         <div class="stack-label">Certification 07 · 2025</div>
         <h4>Introduction to Microsoft Excel (Coursera)</h4>
         <p>
-          Spreadsheet basics, formulas and data analysis.
+          Spreadsheet basics, formulas and data analysis in Excel.
         </p>
         <span class="stack-num">07</span>
       </article>
@@ -980,9 +964,7 @@ footer{
       <article class="stack-card" style="--i:7">
         <div class="stack-label">Certification 08 · 2024</div>
         <h4>HP - A Complete Guide to Game Design</h4>
-        <p>
-          Game design concepts and workflow.
-        </p>
+        <p>Game design concepts and workflow.</p>
         <span class="stack-num">08</span>
       </article>
 
@@ -998,9 +980,7 @@ footer{
 
   <div class="wrap">
 
-    <h2 class="section-title">
-      Featured Projects
-    </h2>
+    <h2 class="section-title">Featured Projects</h2>
 
     <div class="stack">
 
@@ -1013,7 +993,9 @@ footer{
         <h4>TokenSentry</h4>
 
         <p>
-          A monitoring dashboard that tracks token usage, model costs and error rates across GPT-4, Claude &amp; Gemini using simulated data, with threshold-based alerts for cost, errors and long sessions.
+          A monitoring dashboard that tracks token usage, model costs and
+          error rates across GPT-4, Claude &amp; Gemini using simulated data,
+          with threshold-based alerts for cost, errors and long sessions.
         </p>
 
         <div class="card-links">
@@ -1045,7 +1027,9 @@ footer{
         <h4>Gen AI Image Captioning</h4>
 
         <p>
-          An AI-powered app that automatically generates meaningful captions for uploaded images using the BLIP pre-trained model. Built with Python, PyTorch, Hugging Face Transformers and Streamlit.
+          An AI-powered app that automatically generates meaningful captions
+          for uploaded images using the BLIP pre-trained model. Built with
+          Python, PyTorch, Hugging Face Transformers and Streamlit.
         </p>
 
         <div class="card-links">
@@ -1077,7 +1061,9 @@ footer{
         <h4>Thalir Study Tracker</h4>
 
         <p>
-          A study roadmap tracker where a tree grows as you complete topics. Includes streaks, an activity heatmap, history and notes. Built with HTML, CSS and JavaScript.
+          A study roadmap tracker where a tree grows as you complete topics.
+          Includes streaks, an activity heatmap, history and notes.
+          Built with HTML, CSS and JavaScript.
         </p>
 
         <div class="card-links">
@@ -1112,9 +1098,7 @@ footer{
 
   <div class="wrap">
 
-    <h2 class="section-title">
-      Contact Me
-    </h2>
+    <h2 class="section-title">Contact Me</h2>
 
     <div class="contact-grid">
 
@@ -1142,9 +1126,9 @@ footer{
           </a>
 
           <a href="https://www.linkedin.com/in/sabarinathans08/"
-   target="_blank" rel="noopener"
-   aria-label="LinkedIn">
-    <i class="fab fa-linkedin-in"></i>
+             target="_blank" rel="noopener"
+             aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
           </a>
 
           <a href="https://www.instagram.com/"
@@ -1183,9 +1167,7 @@ footer{
           required
         ></textarea>
 
-        <button type="submit">
-          Submit
-        </button>
+        <button type="submit">Submit</button>
 
         <p class="success-msg">
           Thank you! Your message has been sent successfully.
@@ -1210,15 +1192,15 @@ footer{
 const toggle = document.getElementById('navtoggle');
 const links = document.getElementById('navlinks');
 
-toggle.addEventListener('click', () => {
-  links.classList.toggle('open');
-});
+toggle.addEventListener('click', () =>
+  links.classList.toggle('open')
+);
 
-links.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => {
-    links.classList.remove('open');
-  });
-});
+links.querySelectorAll('a').forEach(a =>
+  a.addEventListener('click', () =>
+    links.classList.remove('open')
+  )
+);
 
 </script>
 
@@ -1228,7 +1210,8 @@ links.querySelectorAll('a').forEach(a => {
 
 (function(){
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    return;
 
   const stacks = document.querySelectorAll('.stack');
   let ticking = false;
@@ -1241,28 +1224,30 @@ links.querySelectorAll('a').forEach(a => {
         stack.querySelectorAll('.stack-card')
       );
 
-      cards.forEach(function(card, i){
+      cards.forEach(function(card,i){
 
         let covered = 0;
 
-        for (let j = i + 1; j < cards.length; j++){
+        for(let j=i+1;j<cards.length;j++){
 
           const c = cards[j];
           const top = c.getBoundingClientRect().top;
-          const stickyTop = parseFloat(getComputedStyle(c).top) || 0;
-          const h = c.offsetHeight || 1;
+          const stickyTop = parseFloat(getComputedStyle(c).top)||0;
+          const h = c.offsetHeight||1;
 
           const p = Math.min(
             1,
-            Math.max(0, 1 - (top - stickyTop) / h)
+            Math.max(0,1-(top-stickyTop)/h)
           );
 
           covered += p;
+
         }
 
-        const scale = 1 - Math.min(covered, 5) * 0.035;
+        const scale = 1-Math.min(covered,5)*0.035;
 
-        card.style.transform = 'scale(' + scale.toFixed(4) + ')';
+        card.style.transform =
+          'scale('+scale.toFixed(4)+')';
 
       });
 
@@ -1272,16 +1257,16 @@ links.querySelectorAll('a').forEach(a => {
 
   }
 
-  window.addEventListener('scroll', function(){
+  window.addEventListener('scroll',function(){
 
-    if (!ticking){
+    if(!ticking){
       requestAnimationFrame(update);
       ticking = true;
     }
 
-  }, { passive:true });
+  },{passive:true});
 
-  window.addEventListener('resize', update);
+  window.addEventListener('resize',update);
 
   update();
 
@@ -1295,12 +1280,14 @@ links.querySelectorAll('a').forEach(a => {
 
 (function(){
 
-  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if(!window.matchMedia(
+    '(hover: hover) and (pointer: fine)'
+  ).matches) return;
 
   const ring = document.getElementById('cursorRing');
   const dot = document.getElementById('cursorDot');
 
-  if (!ring || !dot) return;
+  if(!ring||!dot) return;
 
   document.body.classList.add('has-cursor');
 
@@ -1308,59 +1295,58 @@ links.querySelectorAll('a').forEach(a => {
     '(prefers-reduced-motion: reduce)'
   ).matches;
 
-  let mx = 0, my = 0, rx = 0, ry = 0, visible = false;
+  let mx=0,my=0,rx=0,ry=0,visible=false;
 
   function setVisible(v){
 
-    ring.classList.toggle('show', v);
-    dot.classList.toggle('show', v);
+    ring.classList.toggle('show',v);
+    dot.classList.toggle('show',v);
 
-    visible = v;
+    visible=v;
 
   }
 
-  document.addEventListener('mousemove', function(e){
+  document.addEventListener('mousemove',function(e){
 
-    mx = e.clientX;
-    my = e.clientY;
+    mx=e.clientX;
+    my=e.clientY;
 
-    if (!visible){
-      rx = mx;
-      ry = my;
+    if(!visible){
+      rx=mx;
+      ry=my;
     }
 
     dot.style.transform =
-      'translate3d(' + mx + 'px,' + my + 'px,0)';
+      'translate3d('+mx+'px,'+my+'px,0)';
 
-    const t = e.target;
+    const t=e.target;
 
-    const inField = t.closest && t.closest('input, textarea');
+    const inField=t.closest&&
+      t.closest('input, textarea');
 
     setVisible(!inField);
 
     ring.classList.toggle(
       'hover',
-      !!(t.closest && t.closest('a, button'))
+      !!(t.closest&&t.closest('a, button'))
     );
 
-  }, { passive:true });
+  },{passive:true});
 
   document.documentElement.addEventListener(
     'mouseleave',
-    function(){
-      setVisible(false);
-    }
+    function(){setVisible(false);}
   );
 
   function loop(){
 
-    const k = reduce ? 1 : 0.18;
+    const k=reduce?1:0.18;
 
-    rx += (mx - rx) * k;
-    ry += (my - ry) * k;
+    rx+=(mx-rx)*k;
+    ry+=(my-ry)*k;
 
     ring.style.transform =
-      'translate3d(' + rx + 'px,' + ry + 'px,0)';
+      'translate3d('+rx+'px,'+ry+'px,0)';
 
     requestAnimationFrame(loop);
 
@@ -1379,16 +1365,17 @@ links.querySelectorAll('a').forEach(a => {
 const form = document.querySelector("form");
 const successMsg = document.querySelector(".success-msg");
 
-form.addEventListener("submit", async function(e){
+form.addEventListener("submit",async function(e){
 
   e.preventDefault();
 
   const data = new FormData(form);
 
-  const response = await fetch(form.action, {
+  const response = await fetch(form.action,{
 
     method:"POST",
     body:data,
+
     headers:{
       Accept:"application/json"
     }
@@ -1397,7 +1384,7 @@ form.addEventListener("submit", async function(e){
 
   if(response.ok){
 
-    successMsg.style.display = "block";
+    successMsg.style.display="block";
     form.reset();
 
   }else{
