@@ -178,6 +178,11 @@
     transform:translateY(-50%) scale(1.08);
   }
 
+  .stack-card .card-links{position:relative; margin-top:20px;}
+  .stack-card .card-links, .stack-card .learn{transition:transform .35s ease, color .35s ease;}
+  .stack-card:hover .card-links{transform:translateX(10px);}
+  .stack-card .learn:hover{color:#fff; border-color:#fff;}
+
   /* ---- SERVICES ---- */
   .service-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   .service-card{
@@ -340,7 +345,6 @@
     <div class="navlinks" id="navlinks">
       <a href="#home">Home</a>
       <a href="#about">About</a>
-      <a href="#services">Services</a>
       <a href="#work">Projects</a>
       <a href="#contact">Contact</a>
     </div>
@@ -519,125 +523,47 @@
   </div>
 </section>
 
-<section class="section" id="services">
+<section class="section" id="work">
   <div class="wrap">
-    <h2 class="section-title">My Services</h2>
-    <div class="service-grid">
-      <div class="service-card">
-        <div class="service-icon">📊</div>
-        <h3>Data Analysis</h3>
-        <p>Analyzing datasets using Python, SQL, and Excel to identify trends and support data-driven decision making.</p>
-        <a class="learn"
-        href="https://www.google.com/search?q=Data+Analysis"
-        target="_blank" rel="noopener">Learn More →</a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📈</div>
-        <h3>Dashboard Development</h3>
-        <p>
-            Building interactive dashboards and reports using
-            Power BI and Excel to visualize business insights effectively.
-        </p>
-        <a class="learn"
-           href="https://www.google.com/search?q=Power+BI+Dashboard"
-           target="_blank" rel="noopener">
-           Learn More →
-        </a>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <h3>AI &amp; Prompt Engineering</h3>
-        <p>
-            Applying prompt engineering techniques and leveraging
-            AI tools to improve productivity and problem-solving.
-        </p>
-        <a class="learn"
-           href="https://www.google.com/search?q=AI+Prompt+Engineering"
-           target="_blank" rel="noopener">
-           Learn More →
-        </a>
-      </div>
+    <h2 class="section-title">Featured Projects</h2>
+
+    <div class="stack">
+
+      <article class="stack-card" style="--i:0">
+        <div class="stack-label">Project 01 · Streamlit · Python</div>
+        <h4>TokenSentry</h4>
+        <p>A monitoring dashboard that tracks token usage, model costs and error rates across GPT-4, Claude &amp; Gemini using simulated data, with threshold-based alerts for cost, errors and long sessions.</p>
+        <div class="card-links">
+          <a class="learn" href="https://github.com/sabari7813/ai-cost-watchdog" target="_blank" rel="noopener">GitHub →</a>
+          <a class="learn" href="https://tokensentry-sabarinathan.streamlit.app" target="_blank" rel="noopener">Live Demo →</a>
+        </div>
+        <span class="stack-num">01</span>
+      </article>
+
+      <article class="stack-card" style="--i:1">
+        <div class="stack-label">Project 02 · Generative AI · PyTorch</div>
+        <h4>Gen AI Image Captioning</h4>
+        <p>An AI-powered app that automatically generates meaningful captions for uploaded images using the BLIP pre-trained model. Built with Python, PyTorch, Hugging Face Transformers and Streamlit.</p>
+        <div class="card-links">
+          <a class="learn" href="https://github.com/sabari7813/GEN-AI-IMAGE-CAPTIONING-" target="_blank" rel="noopener">GitHub →</a>
+          <a class="learn" href="https://image-captioning-sabari.streamlit.app" target="_blank" rel="noopener">Live Demo →</a>
+        </div>
+        <span class="stack-num">02</span>
+      </article>
+
+      <article class="stack-card" style="--i:2">
+        <div class="stack-label">Project 03 · HTML · CSS · JavaScript</div>
+        <h4>Thalir Study Tracker</h4>
+        <p>A study roadmap tracker where a tree grows as you complete topics. Includes streaks, an activity heatmap, history and notes. Built with HTML, CSS and JavaScript.</p>
+        <div class="card-links">
+          <a class="learn" href="https://github.com/sabari7813/tracking-dairy" target="_blank" rel="noopener">GitHub →</a>
+          <a class="learn" href="https://sabari7813.github.io/tracking-dairy/" target="_blank" rel="noopener">Live Demo →</a>
+        </div>
+        <span class="stack-num">03</span>
+      </article>
+
     </div>
   </div>
-</section>
-
-<section class="section" id="work">
-    <div class="wrap">
-        <h2 class="section-title">Featured Projects</h2>
-
-        <div class="service-grid">
-
-            <div class="service-card">
-                <div class="service-icon">💻</div>
-
-                <h3>TokenSentry</h3>
-
-                <p>
-                    A monitoring dashboard that tracks token usage, model costs and error rates across GPT-4, Claude &amp; Gemini using simulated data, with threshold-based alerts for cost, errors and long sessions.
-                </p>
-
-                <div class="card-links">
-                    <a class="learn"
-                       href="https://github.com/sabari7813/ai-cost-watchdog"
-                       target="_blank" rel="noopener">
-                       GitHub →
-                    </a>
-                    <a class="learn"
-                       href="https://tokensentry-sabarinathan.streamlit.app"
-                       target="_blank" rel="noopener">
-                       Live Demo →
-                    </a>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🖼️</div>
-
-                <h3>Gen AI Image Captioning</h3>
-
-                <p>
-                    An AI-powered app that automatically generates meaningful captions for uploaded images using the BLIP pre-trained model. Built with Python, PyTorch, Hugging Face Transformers and Streamlit.
-                </p>
-
-                <div class="card-links">
-                    <a class="learn"
-                       href="https://github.com/sabari7813/GEN-AI-IMAGE-CAPTIONING-"
-                       target="_blank" rel="noopener">
-                       GitHub →
-                    </a>
-                    <a class="learn"
-                       href="https://image-captioning-sabari.streamlit.app"
-                       target="_blank" rel="noopener">
-                       Live Demo →
-                    </a>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-icon">🌳</div>
-
-                <h3>Thalir Study Tracker</h3>
-
-                <p>
-                    A study roadmap tracker where a tree grows as you complete topics. Includes streaks, an activity heatmap, history and notes. Built with HTML, CSS and JavaScript.
-                </p>
-
-                <div class="card-links">
-                    <a class="learn"
-                       href="https://github.com/sabari7813/tracking-dairy"
-                       target="_blank" rel="noopener">
-                       GitHub →
-                    </a>
-                    <a class="learn"
-                       href="https://sabari7813.github.io/tracking-dairy/"
-                       target="_blank" rel="noopener">
-                       Live Demo →
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
 </section>
 
 <section class="section" id="contact">
